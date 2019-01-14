@@ -11,38 +11,66 @@ namespace ByteBank.Program
     {
         static void Main(string[] args)
         {
-            CalcularBonificacao(); 
 
+            try
+            {
+                ContaCorrente conta1 = new ContaCorrente(4564, 789684);
+                ContaCorrente conta2 = new ContaCorrente(7891, 456794);
+
+                // conta1.Transferir(10000, conta2);
+                conta1.Sacar(10000);
+            }
+            catch (OperacaoFinanceiraException e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+
+                Console.WriteLine("Informações da INNER EXCEPTION (exceção interna):");
+
+                Console.WriteLine(e.InnerException.Message);
+                Console.WriteLine(e.InnerException.StackTrace);
+            }
+            // try
+            // {
+            //     Metodo();
+            // }
+            // catch (DivideByZeroException)
+            // {
+            //     Console.WriteLine("Não é possível dividir por zero!");
+            // }
+            // catch (Exception e)
+            // {
+            //     Console.WriteLine(e.Message);
+            //     Console.WriteLine(e.StackTrace);
+            // }
+
+            Console.WriteLine("Tecle ENTER para finalizar a aplicação.");
             Console.ReadLine(); 
         }
 
-        public static void CalcularBonificacao() 
-        {
-            GerenciadorBonificacao gerenciadorBonificacao = new GerenciadorBonificacao();
+        // public static int Dividir(int numero, int divisor)
+        // {
+        //     try
+        //     {
+        //         return numero / divisor;
+        //     }
+        //     catch (Exception)
+        //     {
+        //         Console.WriteLine("Exceção com numero=" + numero + " e divisor=" + divisor);
+        //         throw;
+        //     }
 
-            Funcionario pedro = new Designer("833.222.048-39");
-            pedro.Nome = "Pedro";
+        // }
 
-            Funcionario roberta = new Diretor("159.753.398-04");
-            roberta.Nome = "Roberta";
+        // static void Metodo()    
+        // {
+        //     TestaDivisao(0);
+        // }
 
-            Funcionario igor = new Auxiliar("981.198.778-53");
-            igor.Nome = "Igor";
+        // static void TestaDivisao(int divisor)
+        // {
+        //     Dividir(10, divisor);
+        // }
 
-            Funcionario camila = new GerenteDeConta("326.985.628-89");
-            camila.Nome = "Camila";
-
-            Desenvolvedor guilherme = new Desenvolvedor("456.175.468-20"); 
-            guilherme.Nome = "Guilherme"; 
-
-            gerenciadorBonificacao.Registrar(guilherme);
-            gerenciadorBonificacao.Registrar(pedro);
-            gerenciadorBonificacao.Registrar(roberta);
-            gerenciadorBonificacao.Registrar(igor);
-            gerenciadorBonificacao.Registrar(camila);
-
-            Console.WriteLine("Total de bonificações do mês " +
-                gerenciadorBonificacao.GetTotalBonificacao());
-        }
     }
 }
